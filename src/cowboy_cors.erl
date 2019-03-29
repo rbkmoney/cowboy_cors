@@ -25,8 +25,11 @@
 }).
 
 -type state() :: #state{}.
-
+-type env() :: cowboy_middleware:env().
+-type request() :: cowboy_req:req().
 %% @private
+-spec execute(request(), env()) ->
+    {ok, request(), env()} | {stop, request()} | {suspend, module(), atom(), [any()]}.
 execute(Req, Env) ->
     Policy = maps:get(cors_policy, Env),
     Method = cowboy_req:method(Req),

@@ -9,7 +9,13 @@ TEMPLATES_PATH := .
 SERVICE_NAME := cowboy_cors
 BUILD_IMAGE_TAG := f3732d29a5e622aabf80542b5138b3631a726adb
 
+CALL_W_CONTAINER := all submodules rebar-update compile xref lint dialyze test clean distclean
+
+.PHONY: $(CALL_W_CONTAINER)
+
 all: compile
+
+-include $(UTILS_PATH)/make_lib/utils_container.mk
 
 $(SUBTARGETS): %/.git: %
 	git submodule update --init $<
@@ -17,7 +23,7 @@ $(SUBTARGETS): %/.git: %
 
 submodules: $(SUBTARGETS)
 
-compile:
+compile: submodules rebar-update
 	$(REBAR) compile
 
 rebar-update:
