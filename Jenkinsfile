@@ -25,26 +25,26 @@ build('cowboy_cors', 'docker-host', finalHook) {
 
       runStage('compile') {
         withGithubPrivkey {
-          sh 'make compile'
+          sh 'make wc_compile'
         }
       }
 
       runStage('lint') {
-        sh 'make lint'
+        sh 'make wc_lint'
       }
 
       runStage('xref') {
-        sh 'make xref'
+        sh 'make wc_xref'
       }
 
       runStage('dialyze') {
        withWsCache("_build/default/rebar3_21.1_plt") {
-         sh 'make dialyze'
+         sh 'make wc_dialyze'
        }
       }
 
       runStage('test') {
-        sh "make test"
+        sh "make wc_test"
       }
 
     }
