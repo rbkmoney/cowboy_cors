@@ -38,7 +38,7 @@ build('cowboy_cors', 'docker-host', finalHook) {
       }
 
       runStage('dialyze') {
-       withWsCache("_build/default/rebar3_21.1_plt") {
+       withWsCache("_build/default/rebar3_21.1.1_plt") {
          sh 'make wc_dialyze'
        }
       }
